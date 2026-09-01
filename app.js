@@ -530,7 +530,7 @@
           ${main}
           <div class="player-controls">
             <button class="btn" data-action="previous">Poprzednie</button>
-            <button class="btn primary-control" data-action="pause">${player.paused ? "Wznów" : "Pauza"}</button>
+            <button class="btn primary-control pause-control" data-action="pause">${player.paused ? "Wznów" : "Pauza"}</button>
             <button class="btn" data-action="next">Następne</button>
             <button class="btn" data-action="restart">Restart</button>
             <button class="btn" data-action="toggle-sound">Dźwięk ${settings.sounds ? "ON" : "OFF"}</button>
@@ -556,7 +556,7 @@
             <div class="focus-block">
               <div class="phase-label">Pierwsze ćwiczenie</div>
               <h1 class="current-name">${escapeHtml(firstExercise.name)}</h1>
-              <div class="timer" aria-label="Czas pierwszego ćwiczenia">${formatTime(firstExercise.duration)}</div>
+              <button class="timer timer-button ready-timer" data-action="begin-workout" aria-label="Rozpocznij timer">${formatTime(firstExercise.duration)}</button>
               <div class="interval-meta"><span>${firstExercise.duration} sekund pracy</span>${firstExercise.weight ? `<span>${escapeHtml(firstExercise.weight)}</span>` : ""}</div>
               <p class="next-line">Następne: <strong>${nextExercise ? escapeHtml(nextExercise.name) : "koniec treningu"}</strong></p>
             </div>
@@ -569,7 +569,7 @@
           </section>
           <div class="player-controls ready-controls">
             <button class="btn" data-action="cancel-start">Wróć</button>
-            <button class="btn primary-control" data-action="begin-workout">Rozpocznij timer</button>
+            <button class="btn primary-control ready-start" data-action="begin-workout">Rozpocznij timer</button>
           </div>
         </div>
       </main>`;
@@ -581,7 +581,7 @@
         <div class="focus-block">
           <div class="phase-label">Praca</div>
           <h1 class="current-name">${escapeHtml(exercise.name)}</h1>
-          <div id="interval-timer" class="timer">00:00</div>
+          <button id="interval-timer" class="timer timer-button ${player.paused ? "is-paused" : ""}" data-action="pause" aria-label="${player.paused ? "Wznów timer" : "Wstrzymaj timer"}" aria-pressed="${player.paused}">00:00</button>
           <div class="interval-meta"><span>${exercise.duration} sekund pracy</span>${exercise.weight ? `<span>${escapeHtml(exercise.weight)}</span>` : ""}</div>
           <p class="next-line">Następne: <strong>${nextExercise ? escapeHtml(nextExercise.name) : "koniec treningu"}</strong></p>
         </div>
@@ -601,7 +601,7 @@
         <div class="focus-block">
           <div class="phase-label">Przerwa</div>
           <h1 class="current-name">Przerwa</h1>
-          <div id="interval-timer" class="timer">00:00</div>
+          <button id="interval-timer" class="timer timer-button ${player.paused ? "is-paused" : ""}" data-action="pause" aria-label="${player.paused ? "Wznów timer" : "Wstrzymaj timer"}" aria-pressed="${player.paused}">00:00</button>
           <p id="starts-in" class="starts-in">Za chwilę zaczynamy.</p>
         </div>
         <aside class="technique">
