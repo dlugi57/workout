@@ -256,6 +256,7 @@ h1 { margin-bottom: 8px; font-size: clamp(34px, 6vw, 64px); line-height: .98; le
 .player-controls { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
 .player-controls .btn { min-width: 0; }
 .player-controls .primary-control { border-color: var(--player-accent); background: var(--player-accent); color: #071413; }
+.player-controls.ready-controls { grid-template-columns: minmax(110px, .55fr) minmax(210px, 1fr); width: min(560px, 100%); margin: 0 auto; }
 
 .complete-page { display: grid; min-height: 100vh; place-items: center; padding: 24px; text-align: center; }
 .complete-card { width: min(560px, 100%); padding: 42px; border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow); }
@@ -293,6 +294,7 @@ h1 { margin-bottom: 8px; font-size: clamp(34px, 6vw, 64px); line-height: .98; le
   .player-main { gap: 16px; }
   .technique { max-height: 28vh; }
   .player-controls { grid-template-columns: repeat(3, 1fr); }
+  .player-controls.ready-controls { grid-template-columns: minmax(90px, .55fr) minmax(190px, 1fr); }
 }
 
 @media (max-width: 600px) {
@@ -329,6 +331,7 @@ h1 { margin-bottom: 8px; font-size: clamp(34px, 6vw, 64px); line-height: .98; le
   .rest-description { font-size: 14px; line-height: 1.45; }
   .player-controls { gap: 6px; padding-top: 9px; }
   .player-controls .btn { min-height: 40px; padding: 0 8px; font-size: 10px; }
+  .player-controls.ready-controls { grid-template-columns: .65fr 1.35fr; }
 }
 
 @media (max-height: 700px) and (max-width: 860px) {

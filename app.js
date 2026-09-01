@@ -463,14 +463,32 @@
       pos,
       endTime: null,
       remainingMs: remainingMs ?? segments[pos].duration * 1000,
-      paused,
+      paused: resumeState ? paused : true,
+      hasStarted: Boolean(resumeState),
       lastBeepSecond: null,
       lastPersistAt: 0,
       timerId: null
     };
     currentView = "player";
-    activateCurrentSegment(player.remainingMs, paused, true);
+    if (resumeState) activateCurrentSegment(player.remainingMs, paused, true);
+    else renderPlayer();
     return true;
+  }
+
+  function beginWorkout() {
+    if (!player || player.hasStarted) return;
+    unlockAudio();
+    player.hasStarted = true;
+    player.paused = false;
+    activateCurrentSegment(player.segments[player.pos].duration * 1000, false, true);
+  }
+
+  function cancelReadyScreen() {
+    if (!player || player.hasStarted) return;
+    clearInterval(player.timerId);
+    player = null;
+    localStorage.removeItem(SESSION_KEY);
+    renderHome();
   }
 
   function activateCurrentSegment(durationMs, paused = false, initial = false) {
@@ -490,6 +508,10 @@
 
   function renderPlayer() {
     if (!player) return;
+    if (!player.hasStarted) {
+      renderReadyPlayer();
+      return;
+    }
     const segment = player.segments[player.pos];
     const exercise = player.workout.exercises[segment.exerciseIndex];
     const nextExercise = player.workout.exercises[segment.exerciseIndex + 1] || null;
@@ -513,6 +535,41 @@
             <button class="btn" data-action="restart">Restart</button>
             <button class="btn" data-action="toggle-sound">Dźwięk ${settings.sounds ? "ON" : "OFF"}</button>
             <button class="btn btn-danger" data-action="finish">Zakończ</button>
+          </div>
+        </div>
+      </main>`;
+  }
+
+  function renderReadyPlayer() {
+    const firstExercise = player.workout.exercises[0];
+    const nextExercise = player.workout.exercises[1] || null;
+    app.innerHTML = `
+      <main class="player is-ready">
+        <div class="player-inner">
+          <div class="player-top">
+            <div><div class="player-kicker">Gotowy do startu</div><div class="player-title">${escapeHtml(player.workout.name)}</div></div>
+            <div class="player-count">Ćwiczenie 1 z ${player.workout.exercises.length}</div>
+            <div class="player-remaining"><span>Cały trening</span><strong>${formatTime(totalDuration(player.workout))}</strong></div>
+          </div>
+          <div class="progress-track" aria-label="Postęp całego treningu"><div class="progress-fill" style="width:0"></div></div>
+          <section class="player-main">
+            <div class="focus-block">
+              <div class="phase-label">Pierwsze ćwiczenie</div>
+              <h1 class="current-name">${escapeHtml(firstExercise.name)}</h1>
+              <div class="timer" aria-label="Czas pierwszego ćwiczenia">${formatTime(firstExercise.duration)}</div>
+              <div class="interval-meta"><span>${firstExercise.duration} sekund pracy</span>${firstExercise.weight ? `<span>${escapeHtml(firstExercise.weight)}</span>` : ""}</div>
+              <p class="next-line">Następne: <strong>${nextExercise ? escapeHtml(nextExercise.name) : "koniec treningu"}</strong></p>
+            </div>
+            <aside class="technique">
+              <h2>Przygotuj się</h2>
+              <p>${escapeHtml(firstExercise.description || "Przygotuj pozycję i rozpocznij, kiedy będziesz gotowy.")}</p>
+              ${firstExercise.muscles ? `<p class="muscles"><span>Główne mięśnie</span>${escapeHtml(firstExercise.muscles)}</p>` : ""}
+              ${firstExercise.tips ? `<p class="tips">${escapeHtml(firstExercise.tips)}</p>` : ""}
+            </aside>
+          </section>
+          <div class="player-controls ready-controls">
+            <button class="btn" data-action="cancel-start">Wróć</button>
+            <button class="btn primary-control" data-action="begin-workout">Rozpocznij timer</button>
           </div>
         </div>
       </main>`;
@@ -695,7 +752,7 @@
   }
 
   function persistSession(force = false) {
-    if (!player) return;
+    if (!player || !player.hasStarted) return;
     const now = Date.now();
     if (!force && now - player.lastPersistAt < 500) return;
     player.lastPersistAt = now;
@@ -874,6 +931,8 @@
     if (action === "bulk-duration") bulkSet("duration", "#bulk-duration");
     if (action === "bulk-rest") bulkSet("rest", "#bulk-rest");
     if (action === "start") startPlayer(workoutId);
+    if (action === "begin-workout") beginWorkout();
+    if (action === "cancel-start") cancelReadyScreen();
     if (action === "pause") togglePause();
     if (action === "previous") jumpExercise(-1);
     if (action === "next") jumpExercise(1);

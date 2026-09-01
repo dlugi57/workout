@@ -12,6 +12,7 @@ Otwórz plik `index.html` w dowolnej współczesnej przeglądarce.
 - automatyczne zapisywanie treningów oraz ustawienia dźwięku w `localStorage`,
 - precyzyjny timer oparty na timestampach,
 - osobny ekran pracy i przerwy z opisem kolejnego ćwiczenia,
+- ekran przygotowania — timer rusza dopiero po dodatkowym kliknięciu „Rozpocznij timer”,
 - pauza, wznowienie, poprzednie/następne, restart i zakończenie,
 - sygnały Web Audio API przy 3, 2 i 1 sekundzie oraz przy starcie ćwiczenia,
 - pasek postępu i poprawnie liczony pozostały czas,
