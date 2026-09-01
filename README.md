@@ -6,6 +6,33 @@ Lekka aplikacja działająca całkowicie w przeglądarce. Nie wymaga instalacji,
 
 Otwórz plik `index.html` w dowolnej współczesnej przeglądarce.
 
+## Struktura projektu
+
+```text
+workout-timer/
+├── index.html
+├── styles.css
+├── js/
+│   ├── app.js
+│   └── data-loader.js
+└── data/
+    ├── manifest.json
+    ├── presets.js
+    ├── dumbbell-full-body-15.json
+    ├── poranny-rozruch-5.json
+    └── szybki-core-6.json
+```
+
+`js/app.js` zawiera interfejs i timer. `js/data-loader.js` odpowiada wyłącznie za ładowanie treningów startowych. Każdy trening startowy znajduje się w osobnym pliku JSON.
+
+### Dodawanie kolejnego treningu startowego
+
+1. Dodaj poprawny plik, np. `data/moj-trening.json`.
+2. Dopisz jego nazwę do tablicy `files` w `data/manifest.json`.
+3. Jeżeli aplikacja ma nadal działać również po bezpośrednim otwarciu `index.html` przez `file://`, dopisz ten sam trening do `data/presets.js`.
+
+Na GitHub Pages aplikacja automatycznie pobiera wszystkie pliki JSON wymienione w manifeście. Statyczna strona nie może samodzielnie wylistować katalogu serwera, dlatego manifest jest konieczny. `data/presets.js` jest zapasowym źródłem danych tylko dla trybu `file://`, w którym przeglądarki blokują `fetch()` lokalnych JSON-ów.
+
 ## Możliwości
 
 - tworzenie, edycja, usuwanie, duplikowanie i zmiana kolejności ćwiczeń,

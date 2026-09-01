@@ -1,0 +1,62 @@
+{
+  "id": "szybki-core-6",
+  "name": "Szybki core 6",
+  "description": "Sześć prostych interwałów wzmacniających środek ciała.",
+  "includeLastRest": false,
+  "exercises": [
+    {
+      "id": "dead-bug",
+      "name": "Dead bug",
+      "duration": 30,
+      "rest": 15,
+      "weight": "",
+      "description": "Leżąc na plecach, opuszczaj naprzemiennie przeciwną rękę i nogę, utrzymując lędźwie przy podłożu.",
+      "tips": "Ruszaj się powoli. Nie unoś lędźwi."
+    },
+    {
+      "id": "side-plank-l",
+      "name": "Deska bokiem — lewa",
+      "duration": 30,
+      "rest": 15,
+      "weight": "",
+      "description": "Oprzyj lewe przedramię, unieś biodra i utrzymuj ciało w prostej linii.",
+      "tips": "Łokieć pod barkiem. Biodra wysoko."
+    },
+    {
+      "id": "side-plank-r",
+      "name": "Deska bokiem — prawa",
+      "duration": 30,
+      "rest": 15,
+      "weight": "",
+      "description": "Oprzyj prawe przedramię, unieś biodra i utrzymuj ciało w prostej linii.",
+      "tips": "Łokieć pod barkiem. Oddychaj spokojnie."
+    },
+    {
+      "id": "bird-dog",
+      "name": "Bird dog",
+      "duration": 30,
+      "rest": 15,
+      "weight": "",
+      "description": "W klęku podpartym wyprostuj przeciwną rękę i nogę, zatrzymaj, a potem zmień stronę.",
+      "tips": "Biodra pozostają nieruchome. Sięgaj w dwie strony."
+    },
+    {
+      "id": "slow-climber",
+      "name": "Wolny mountain climber",
+      "duration": 30,
+      "rest": 15,
+      "weight": "",
+      "description": "Z pozycji deski przyciągaj naprzemiennie kolano w stronę klatki piersiowej.",
+      "tips": "Nie kołysz biodrami. Dłonie pod barkami."
+    },
+    {
+      "id": "hollow-hold",
+      "name": "Hollow hold",
+      "duration": 30,
+      "rest": 15,
+      "weight": "",
+      "description": "Leżąc na plecach, unieś łopatki i nogi, utrzymując lędźwie dociśnięte do podłoża.",
+      "tips": "Skróć dźwignię, jeśli lędźwie się odrywają."
+    }
+  ]
+}

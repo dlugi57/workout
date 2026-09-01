@@ -1,0 +1,53 @@
+{
+  "id": "poranny-rozruch-5",
+  "name": "Poranny rozruch 5",
+  "description": "Krótka sesja bez sprzętu na dobry początek dnia.",
+  "includeLastRest": false,
+  "exercises": [
+    {
+      "id": "march",
+      "name": "Marsz w miejscu",
+      "duration": 35,
+      "rest": 15,
+      "weight": "",
+      "description": "Maszeruj energicznie, unosząc kolana do komfortowej wysokości i pracując ramionami.",
+      "tips": "Stań wysoko. Oddychaj swobodnie."
+    },
+    {
+      "id": "air-squat",
+      "name": "Przysiad bez obciążenia",
+      "duration": 35,
+      "rest": 15,
+      "weight": "",
+      "description": "Cofnij biodra, ugnij kolana i zejdź do wygodnej głębokości, następnie wróć do stania.",
+      "tips": "Pięty na podłodze. Kolana prowadź nad stopami."
+    },
+    {
+      "id": "wall-pushup",
+      "name": "Pompki przy ścianie",
+      "duration": 35,
+      "rest": 15,
+      "weight": "",
+      "description": "Oprzyj dłonie o ścianę, utrzymaj ciało w jednej linii i zbliż klatkę do ściany, uginając łokcie.",
+      "tips": "Napnij brzuch. Łokcie prowadź lekko w dół."
+    },
+    {
+      "id": "good-morning",
+      "name": "Skłon biodrowy",
+      "duration": 35,
+      "rest": 15,
+      "weight": "",
+      "description": "Połóż dłonie za głową, lekko ugnij kolana i cofnij biodra, utrzymując proste plecy.",
+      "tips": "Ruch zaczyna się w biodrach. Nie zaokrąglaj pleców."
+    },
+    {
+      "id": "plank",
+      "name": "Deska",
+      "duration": 35,
+      "rest": 15,
+      "weight": "",
+      "description": "Oprzyj przedramiona i palce stóp o podłoże. Utrzymuj ciało w jednej linii od głowy do pięt.",
+      "tips": "Napnij brzuch i pośladki. Oddychaj spokojnie."
+    }
+  ]
+}
