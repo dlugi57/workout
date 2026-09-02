@@ -364,3 +364,32 @@ h1 { margin-bottom: 8px; font-size: clamp(34px, 6vw, 64px); line-height: .98; le
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
 }
+
+/* Serie na powtórzenia, obiegi treningu i blokada wygaszania ekranu */
+.field select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #101513;
+  color: var(--text);
+  padding: 12px 13px;
+  font: inherit;
+}
+.mode-tag { flex: none; padding: 4px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 11px; font-weight: 850; white-space: nowrap; }
+.bulk-hint { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+.round-pill { display: inline-block; padding: 3px 8px; border-radius: 999px; background: var(--surface-soft); color: var(--player-accent, var(--accent)); font-size: 11px; font-weight: 900; letter-spacing: .04em; white-space: nowrap; }
+.wake-note { margin-top: 3px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.reps-timer { line-height: .9; }
+.reps-unit { margin-left: .06em; font-size: .42em; opacity: .65; }
+.player.is-reps .interval-meta strong { color: var(--player-accent); font-variant-numeric: tabular-nums; }
+.player-controls:not(.ready-controls) [data-action="reps-done"] { grid-column: span 2; min-height: 58px; font-size: 15px; }
+
+@media (max-width: 860px) {
+  .player-controls:not(.ready-controls) [data-action="reps-done"] { grid-area: pause; grid-column: auto; }
+}
+
+@media (max-width: 600px) {
+  .exercise-summary .mode-tag { display: none; }
+  .wake-note { display: none; }
+  .player-controls:not(.ready-controls) [data-action="reps-done"] { min-height: 58px; font-size: 14px; }
+}

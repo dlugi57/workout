@@ -20,6 +20,7 @@ workout-timer/
     ├── presets.js
     ├── dumbbell-full-body-15.json
     ├── poranny-rozruch-5.json
+    ├── rehafit-lydki.json
     └── szybki-core-6.json
 ```
 
@@ -36,6 +37,9 @@ Na GitHub Pages aplikacja automatycznie pobiera wszystkie pliki JSON wymienione 
 ## Możliwości
 
 - tworzenie, edycja, usuwanie, duplikowanie i zmiana kolejności ćwiczeń,
+- ćwiczenia na czas **oraz na powtórzenia** — seria na powtórzenia czeka na przycisk „Zrobione ✓” i mierzy czas w górę,
+- ilość serii przy każdym ćwiczeniu (np. 5 serii po 40 s) oraz obiegi całego treningu z osobną przerwą,
+- ekran nie gaśnie podczas treningu (Screen Wake Lock API, z trybem zastępczym),
 - automatyczne zapisywanie treningów oraz ustawienia dźwięku w `localStorage`,
 - precyzyjny timer oparty na timestampach,
 - osobny ekran pracy i przerwy z opisem kolejnego ćwiczenia,
@@ -47,6 +51,28 @@ Na GitHub Pages aplikacja automatycznie pobiera wszystkie pliki JSON wymienione 
 - import i eksport wszystkich treningów lub pojedynczego treningu w JSON,
 - przywracanie niedokończonego treningu po odświeżeniu,
 - responsywny widok telefonu.
+
+## Serie i powtórzenia
+
+Aplikacja rozróżnia dwa niezależne poziomy powtarzania:
+
+- **Ilość serii** (pole przy ćwiczeniu) — ile razy z rzędu wykonujesz to konkretne ćwiczenie, z jego przerwą po każdej serii. Tak zapisane są typowe plany rehabilitacyjne i siłowe, np. „ćwiczenie 1: 5 serii, ćwiczenie 2: 3 serie”.
+- **Obiegi całego treningu** (pole przy treningu) — ile razy powtarzana jest cała lista ćwiczeń od początku (1–20). Do tego **Przerwa między obiegami (s)**; `0` oznacza użycie zwykłej przerwy ostatniego ćwiczenia.
+
+Oba można łączyć: 3 obiegi treningu, w którym ćwiczenie ma 2 serie, dadzą 6 bloków pracy tego ćwiczenia.
+
+Każde ćwiczenie ma pole **Typ ćwiczenia**:
+
+- **Na czas** — klasyczny odliczany interwał (pole `Czas serii (s)`),
+- **Na powtórzenia** — timer nie odlicza, tylko mierzy czas serii w górę, a trening przechodzi dalej dopiero po naciśnięciu dużego przycisku „Zrobione ✓” (albo samej liczby powtórzeń). Pole `Szacowany czas (s)` służy wyłącznie do wyliczenia łącznego czasu i paska postępu; `0` oznacza szacunek 3 s na powtórzenie. Czas z szacunku jest oznaczany tyldą, np. `~12:30`.
+
+## Ekran, który nie gaśnie
+
+Podczas treningu aplikacja prosi system o blokadę wygaszania ekranu (Screen Wake Lock API) i odbiera ją ponownie po powrocie do karty. Blokada jest zwalniana po zakończeniu lub przerwaniu treningu.
+
+Wake Lock API wymaga **bezpiecznego kontekstu**: `https://`, `http://localhost` albo `http://127.0.0.1`. Otwarcie aplikacji na telefonie po zwykłym `http://192.168.x.x` z serwera WAMP nie spełnia tego warunku — wtedy uruchamiany jest tryb zastępczy: ukryty, wyciszony filmik odtwarzany w pętli, który w większości przeglądarek mobilnych również powstrzymuje wygaszanie. Który tryb jest aktywny, widać w małym podpisie pod nazwą treningu na ekranie odtwarzacza.
+
+Aby mieć pełną, systemową blokadę na telefonie, warto podać aplikację przez HTTPS (np. certyfikat w WAMP, tunel typu Cloudflare/ngrok albo GitHub Pages).
 
 ## Dane lokalne
 
@@ -70,22 +96,48 @@ Najprostszy format pojedynczego treningu:
   "name": "Mój trening",
   "description": "Opcjonalny opis treningu",
   "includeLastRest": false,
+  "rounds": 3,
+  "roundRest": 90,
   "exercises": [
     {
       "id": "przysiad",
       "name": "Przysiad z hantlami",
+      "mode": "time",
+      "sets": 3,
       "duration": 40,
       "rest": 25,
       "weight": "2 × 8 kg",
       "muscles": "uda, pośladki, brzuch",
       "description": "Cofnij biodra i zejdź do przysiadu.",
       "tips": "Kolana prowadź w kierunku palców stóp."
+    },
+    {
+      "id": "wioslowanie",
+      "name": "Wiosłowanie hantlem",
+      "mode": "reps",
+      "sets": 3,
+      "reps": 12,
+      "duration": 0,
+      "rest": 30,
+      "weight": "1 × 10 kg"
     }
   ]
 }
 ```
 
 Pola `id`, `description`, `weight`, `muscles`, `tips` i `includeLastRest` mogą zostać pominięte. Wymagane są: nazwa treningu, tablica `exercises`, nazwa każdego ćwiczenia oraz liczbowy `duration` i `rest` większe lub równe zero.
+
+Pola dodane dla serii i powtórzeń są opcjonalne i mają domyślne wartości:
+
+| pole | poziom | domyślnie | znaczenie |
+| --- | --- | --- | --- |
+| `rounds` | trening | `1` | ile razy powtórzyć całą listę ćwiczeń (1–20) |
+| `roundRest` | trening | `0` | przerwa między obiegami w sekundach; `0` = zwykła przerwa ostatniego ćwiczenia |
+| `mode` | ćwiczenie | `"time"` | `"time"` albo `"reps"` |
+| `sets` | ćwiczenie | `1` | ile serii tego ćwiczenia z rzędu, z przerwą po każdej (1–20) |
+| `reps` | ćwiczenie | `10` | liczba powtórzeń przy `mode: "reps"` (1–999) |
+
+Przy `mode: "reps"` pole `duration` przestaje odliczać i służy tylko jako szacowany czas serii; `0` oznacza automatyczny szacunek 3 s na powtórzenie.
 
 Kolekcję wielu treningów można zaimportować w formacie:
 

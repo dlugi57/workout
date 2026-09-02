@@ -1,0 +1,35 @@
+{
+  "id": "rehafit-lydki",
+  "name": "RehaFit+ — łydki",
+  "description": "Plan z Centrum Medycznego RehaFit+. Dwa ćwiczenia na łydki i ścięgno Achillesa: izometria w zgięciu kolana oraz wspięcia z powolnym zejściem jednonóż.",
+  "includeLastRest": false,
+  "rounds": 1,
+  "roundRest": 0,
+  "exercises": [
+    {
+      "id": "stanie-na-palcach-izometria",
+      "name": "Stanie na palcach z ugiętym kolanem",
+      "mode": "time",
+      "sets": 5,
+      "duration": 40,
+      "rest": 40,
+      "weight": "",
+      "muscles": "łydki (płaszczkowaty), ścięgno Achillesa",
+      "description": "Stań na palcach z lekko ugiętym kolanem i utrzymaj tę pozycję przez cały czas serii. Kolano pozostaje ugięte, pięta wysoko.",
+      "tips": "Ilość serii: 5 · czas serii: 40 s · przerwa: 40 s. Utrzymuj stabilną pozycję, ciężar na palcach."
+    },
+    {
+      "id": "wspiecia-zejscie-jednonoz",
+      "name": "Wspięcia obunóż, zejście jednonóż",
+      "mode": "reps",
+      "sets": 3,
+      "reps": 10,
+      "duration": 0,
+      "rest": 60,
+      "weight": "",
+      "muscles": "łydki (brzuchaty i płaszczkowaty), ścięgno Achillesa",
+      "description": "Wejdź na palce obunóż, następnie przenieś ciężar na jedną nogę i powoli opuść piętę w dół. Powrót w górę znów obunóż.",
+      "tips": "Ilość serii: 3 · 10 powtórzeń · tempo opuszczania: 1 s · przerwa: 60 s. Zejście ma być kontrolowane, nie opadaj."
+    }
+  ]
+}
